@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import Plot from 'react-plotly.js';
+import { selectChart } from './actions'
+import { connect } from 'react-redux'
 
 function App() {
   const [data,setData]= useState()
@@ -17,6 +19,13 @@ function App() {
 
   return (
     <div>
+      <div>
+       <h1>REACTJS CSV IMPORT EXAMPLE </h1>
+            <form>
+                <input type={"file"} accept={".csv"} />
+                <button>IMPORT CSV</button>
+            </form>
+      </div>
       <button onClick={()=>genGraph()}>Generate graph</button>
       <div id="myDiv">
      { data && <Plot
@@ -83,4 +92,9 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  console.log(state)
+  return state
+}
+
+export default connect(mapStateToProps)(App);
