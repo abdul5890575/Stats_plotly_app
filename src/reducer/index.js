@@ -1,13 +1,14 @@
 import { combineReducers } from "redux"
 
-const dataUploadedReducer = (data=[],action) => {
+const dataUploaded = (data=[],action) => {
   if(action.type === 'UPLOAD_DATA'){
-    return data
+    console.log('sss',data)
+    return [...action.payload]
   }
   return data;
 }
 
-const selectedChartTypeReducer = ( selectedChart = 'aa', action) => {
+const selectedChartType = ( selectedChart = '', action) => {
   if(action.type === 'CHART_SELECTED'){
     return action.payload
   }
@@ -15,5 +16,5 @@ const selectedChartTypeReducer = ( selectedChart = 'aa', action) => {
 }
 
 export default combineReducers({
-  dataUploadedReducer, selectedChartTypeReducer
+  dataUploaded, selectedChartType
 })
