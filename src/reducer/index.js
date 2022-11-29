@@ -1,9 +1,8 @@
 import { combineReducers } from "redux"
 
-const dataUploaded = (data=[],action) => {
+const dataUploaded = (data={},action) => {
   if(action.type === 'UPLOAD_DATA'){
-    console.log('sss',data)
-    return [...action.payload]
+    return {...action.payload}
   }
   return data;
 }

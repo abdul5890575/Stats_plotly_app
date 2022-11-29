@@ -2,13 +2,14 @@ import React, {useState} from 'react';
 import Plot from 'react-plotly.js';
 import { selectChart, uploadData } from './actions'
 import { connect } from 'react-redux'
+import {useDispatch} from 'react-redux'
 import Papa from 'papaparse';
 
 function App(props) {
+  const [data,setData]= useState({})
 
 
   let parseCSV = (e) => {
-    e.preventDefault()
     Papa.parse(e.target.files[0], {
       header: false,
       skipEmptyLines: true,
@@ -25,20 +26,21 @@ function App(props) {
             z.push(d[2])
           }
         });
-        let data = {"x":x,"y":y,"z":z}
-        return data
+        let result = {"x":x,"y":y,"z":z}
+        console.log('rrr',result)
+        props.uploadData(result)
+        return result
       },
     });
-   }
-   let data1 = {"x":[2],"y":[3],"z":[4]}
+  }
 
   return (
     <div>
       <div>
        <h1>REACTJS CSV IMPORT EXAMPLE </h1>
             <form>
-                <input type={"file"} accept={".csv"} />
-                <button onClick={()=> props.uploadData([2,3,4])} >IMPORT CSV</button>
+                <input id="csvfile" type={"file"} accept={".csv"} onChange={parseCSV} />
+                <button >IMPORT CSV</button>
             </form>
       </div>
 
