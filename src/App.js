@@ -8,6 +8,10 @@ import Papa from 'papaparse';
 function App(props) {
   const [data,setData]= useState({})
 
+  let handleChart = (e) =>{
+    console.log(e.target.value)
+    props.selectChart(e.target.value)
+  }
 
   let parseCSV = (e) => {
     Papa.parse(e.target.files[0], {
@@ -44,6 +48,24 @@ function App(props) {
             </form>
       </div>
 
+      <label>
+
+       Select type of chart
+
+       <select onChange={handleChart}>
+         <option value="line">Line</option>
+         <option value="scatter">Scatter</option>
+         <option value="pie">Pie</option>
+         <option value="boxplot">BoxPlot</option>
+         <option value="3Daxis">3D Axis</option>
+         <option value="3Dline">3D Line</option>
+         <option value="3Dsurface">3D surface</option>
+         <option value="Histograms">Histograms</option>
+         <option value="countourplots">Countour Plots</option>
+       </select>
+     </label>
+
+
       </div>
   );
 }
@@ -54,5 +76,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps,{
-  uploadData
+  uploadData,selectChart
 })(App);
