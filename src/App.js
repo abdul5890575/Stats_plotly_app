@@ -1,19 +1,20 @@
-import React, {useState} from 'react';
-import Plot from 'react-plotly.js';
-import { selectChart, uploadData } from './actions'
-import { connect } from 'react-redux'
-import {useDispatch} from 'react-redux'
-import Papa from 'papaparse';
-import Chart from './components/chartcomponent'
+import React, { useState } from "react";
+import Plot from "react-plotly.js";
+import { selectChart, uploadData } from "./actions";
+import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
+import Papa from "papaparse";
+import { BrowserRouter, Route } from "react-router-dom";
+import homepage from "./components/homepage";
+import chartService from "./components/chartService";
 
 function App(props) {
-  let dataUploadedCheck = Object.keys(props.dataUploaded).length > 0
-  const [data,setData]= useState({})
+  const [data, setData] = useState({});
 
-  let handleChart = (e) =>{
-    console.log(e.target.value)
-    props.selectChart(e.target.value)
-  }
+  let handleChart = (e) => {
+    console.log(e.target.value);
+    props.selectChart(e.target.value);
+  };
 
   let parseCSV = (e) => {
     Papa.parse(e.target.files[0], {
@@ -28,26 +29,35 @@ function App(props) {
         results.data.map((d) => {
           x.push(d[0]);
           y.push(d[1]);
-          if(d[2]){
-            z.push(d[2])
+          if (d[2]) {
+            z.push(d[2]);
           }
         });
-        let result = {"x":x,"y":y,"z":z}
-        console.log('rrr',result)
-        props.uploadData(result)
-        return result
+        let result = { x: x, y: y, z: z };
+        console.log("rrr", result);
+        props.uploadData(result);
+        return result;
       },
     });
-  }
+  };
 
   return (
     <div>
+      <BrowserRouter>
+        <Route path="/" exact component={homepage} />
+        <Route path="/chartservices" exact component={chartService} />
+      </BrowserRouter>
       <div>
-       <h1>REACTJS CSV IMPORT EXAMPLE </h1>
-            <form>
-                <input id="csvfile" type={"file"} accept={".csv"} onChange={parseCSV} />
-                <button >IMPORT CSV</button>
-            </form>
+        <h1>REACTJS CSV IMPORT EXAMPLE </h1>
+        <form>
+          <input
+            id="csvfile"
+            type={"file"}
+            accept={".csv"}
+            onChange={parseCSV}
+          />
+          <button>IMPORT CSV</button>
+        </form>
       </div>
 
       <label>
@@ -79,6 +89,7 @@ const mapStateToProps = (state) => {
   return state
 }
 
-export default connect(mapStateToProps,{
-  uploadData,selectChart
+export default connect(mapStateToProps, {
+  uploadData,
+  selectChart,
 })(App);
