@@ -7,7 +7,7 @@ const dataUploaded = (data={},action) => {
   return data;
 }
 
-const selectedChartType = ( selectedChart = '', action) => {
+const selectedChartType = ( selectedChart = 'line', action) => {
   if(action.type === 'CHART_SELECTED'){
     return action.payload
   }
