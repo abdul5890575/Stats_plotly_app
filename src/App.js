@@ -4,8 +4,10 @@ import { selectChart, uploadData } from './actions'
 import { connect } from 'react-redux'
 import {useDispatch} from 'react-redux'
 import Papa from 'papaparse';
+import Chart from './components/chartcomponent'
 
 function App(props) {
+  let dataUploadedCheck = Object.keys(props.dataUploaded).length > 0
   const [data,setData]= useState({})
 
   let handleChart = (e) =>{
@@ -64,6 +66,8 @@ function App(props) {
          <option value="countourplots">Countour Plots</option>
        </select>
      </label>
+      
+     {dataUploadedCheck && <Chart/> }
 
 
       </div>
@@ -72,7 +76,7 @@ function App(props) {
 
 const mapStateToProps = (state) => {
   console.log('statee',state)
-  return {}
+  return state
 }
 
 export default connect(mapStateToProps,{
