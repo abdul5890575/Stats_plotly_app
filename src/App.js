@@ -4,6 +4,9 @@ import { selectChart, uploadData } from './actions'
 import { connect } from 'react-redux'
 import {useDispatch} from 'react-redux'
 import Papa from 'papaparse';
+import { BrowserRouter, Route } from 'react-router-dom'
+import homepage from './components/homepage';
+import chartService  from './components/chartService'
 
 function App(props) {
   const [data,setData]= useState({})
@@ -36,6 +39,10 @@ function App(props) {
 
   return (
     <div>
+      <BrowserRouter>
+        <Route path="/" exact component={homepage}/>
+        <Route path="/chartservices" exact component={chartService}/>
+      </BrowserRouter>
       <div>
        <h1>REACTJS CSV IMPORT EXAMPLE </h1>
             <form>
@@ -44,7 +51,7 @@ function App(props) {
             </form>
       </div>
 
-      </div>
+    </div>
   );
 }
 
