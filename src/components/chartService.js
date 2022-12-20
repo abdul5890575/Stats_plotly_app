@@ -4,6 +4,7 @@ import { useState, setState } from "react";
 import { selectChart, uploadData } from "../actions";
 import { connect } from "react-redux";
 import Chart from "./chartcomponent"
+import {parseCsvHelper} from "../helpers/chartService"
 
 const ChartService = (props) => {
   let [dataUploadedCheck,setDataUploadedCheck] = useState(false)
@@ -20,27 +21,11 @@ const ChartService = (props) => {
 
   console.log('sssss',dataUploadedCheck)
   let parseCSV = (e) => {
-    Papa.parse(e.target.files[0], {
-      header: false,
-      skipEmptyLines: true,
-      complete: function (results) {
-        let x = [];
-        let y = [];
-        let z = [];
-
-        // Iterating data to get column name and their values
-        results.data.map((d) => {
-          x.push(d[0]);
-          y.push(d[1]);
-          if (d[2]) {
-            z.push(d[2]);
-          }
-        });
-        let result = { x: x, y: y, z: z };
-        props.uploadData(result);
-        return result;
-      },
-    });
+    parseCsvHelper(e).then((body)=>{
+      console.log("eeee",body)
+    })
+   
+    //props.uploadData(result);
   };
 
   return (
