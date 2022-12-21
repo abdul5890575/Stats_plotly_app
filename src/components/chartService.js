@@ -1,5 +1,4 @@
 import React from "react";
-import Papa from "papaparse";
 import { useState, setState } from "react";
 import { selectChart, uploadData } from "../actions";
 import { connect } from "react-redux";
@@ -19,13 +18,10 @@ const ChartService = (props) => {
     console.log('clicked',dataUploadedCheck)
   };
 
-  console.log('sssss',dataUploadedCheck)
   let parseCSV = (e) => {
     parseCsvHelper(e).then((body)=>{
-      console.log("eeee",body)
+      props.uploadData(body);
     })
-   
-    //props.uploadData(result);
   };
 
   return (
