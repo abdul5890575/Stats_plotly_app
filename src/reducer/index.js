@@ -14,6 +14,21 @@ const selectedChartType = ( selectedChart = 'line', action) => {
   return selectedChart
 }
 
+const selectedMode = ( selectedMode = 'lines', action) => {
+  if(action.type === 'MODE'){
+    switch (action.payload) {
+      case 'scatter':
+        selectedMode = 'markers'
+        break
+      case 'line':  
+        selectedMode = 'lines'
+        break
+    }
+  }
+  return selectedMode
+}
+
+
 export default combineReducers({
-  dataUploaded, selectedChartType
+  dataUploaded, selectedChartType, selectedMode
 })

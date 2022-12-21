@@ -1,6 +1,6 @@
 import React from "react";
-import { useState, setState } from "react";
-import { selectChart, uploadData } from "../actions";
+import { useState } from "react";
+import { selectChart, uploadData,selectedMode } from "../actions";
 import { connect } from "react-redux";
 import Chart from "./chartcomponent"
 import {parseCsvHelper} from "../helpers/chartService"
@@ -10,12 +10,12 @@ const ChartService = (props) => {
   
   let handleChart = (e) => {
     props.selectChart(e.target.value);
+    props.selectedMode(e.target.value);
   };
 
   let generateChart = (e) => {
     e.preventDefault()
     setDataUploadedCheck(Object.keys(props.dataUploaded).length !== 0)
-    console.log('clicked',dataUploadedCheck)
   };
 
   let parseCSV = (e) => {
@@ -48,6 +48,7 @@ const ChartService = (props) => {
          <option value="scatter">Scatter</option>
          <option value="pie">Pie</option>
          <option value="boxplot">BoxPlot</option>
+         <option value="bar">Bar</option>
          <option value="3Daxis">3D Axis</option>
          <option value="3Dline">3D Line</option>
          <option value="3Dsurface">3D surface</option>
@@ -73,6 +74,7 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   uploadData,
   selectChart,
+  selectedMode
 })(ChartService);
 
 

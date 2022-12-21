@@ -13,4 +13,14 @@ export const uploadData = (data) => {
   }
 }
 
+export const selectedMode = (data) => {
+  return {
+    type: 'MODE',
+    payload: data
+  }
+}
+
+
+
+
 

@@ -1,5 +1,5 @@
 import Plot from 'react-plotly.js'; 
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 function Chart(props) {
   
@@ -8,18 +8,18 @@ function Chart(props) {
     { <Plot
       data={[
         {
-          x: [1, 2, 3],
-          y: [2, 6, 3],
-          type: 'scatter',
-          mode: 'lines+markers',
+          x:props.dataUploaded.x,
+          y: props.dataUploaded.y,
+          type: props.selectedChartType,
+          mode: props.selectedMode,
           marker: {color: 'red'},
         },
-        {type: 'bar', x: [1, 2, 3], y: [2, 5, 3]},
+        //{type: 'bar', x: [1, 2, 3], y: [2, 5, 3]},
         {editable: true}
       ]}
       layout={{width: 600, height: 550, title: '3D'}}
     />}
-    <div>
+    {/* <div>
     { <Plot
       data={[
         {
@@ -63,15 +63,14 @@ function Chart(props) {
       ]}
       layout={{width: 600, height: 550, title: 'mesh'}}
     />}
-    </div>
+    </div> */}
     </div>
   ) 
 
 }
 
 const mapStateToProps = (state) => {
-  console.log('statee',state)
-  return {}
+  return state
 }
 
 export default connect(mapStateToProps)(Chart);
