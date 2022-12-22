@@ -1,25 +1,24 @@
-import Plot from 'react-plotly.js'; 
-import { connect } from 'react-redux';
+import Plot from "react-plotly.js";
+import { connect } from "react-redux";
 
 function Chart(props) {
-  
   return (
     <div id="myDiv">
-    { <Plot
-      data={[
-        {
-          x:props.dataUploaded.x,
-          y: props.dataUploaded.y,
-          type: props.selectedChartType,
-          mode: props.selectedMode,
-          marker: {color: 'red'},
-        },
-        //{type: 'bar', x: [1, 2, 3], y: [2, 5, 3]},
-        {editable: true}
-      ]}
-      layout={{width: 600, height: 550, title: '3D'}}
-    />}
-    {/* <div>
+      <Plot
+        data={[
+          {
+            x: props.dataUploaded.x,
+            y: props.dataUploaded.y,
+            type: props.selectedChartType,
+            mode: props.selectedMode,
+            marker: { color: "red" },
+          },
+          //{type: 'bar', x: [1, 2, 3], y: [2, 5, 3]},
+          { editable: true },
+        ]}
+        layout={{ width: 600, height: 550, title: "3D" }}
+      />
+      {/* <div>
     { <Plot
       data={[
         {
@@ -65,14 +64,11 @@ function Chart(props) {
     />}
     </div> */}
     </div>
-  ) 
-
+  );
 }
 
 const mapStateToProps = (state) => {
-  return state
-}
+  return state;
+};
 
 export default connect(mapStateToProps)(Chart);
-
-

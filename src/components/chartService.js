@@ -1,27 +1,28 @@
 import React from "react";
 import { useState } from "react";
-import { selectChart, uploadData,selectedMode } from "../actions";
+import { selectChart, uploadData, selectedMode } from "../actions";
 import { connect } from "react-redux";
-import Chart from "./chartcomponent"
-import {parseCsvHelper} from "../helpers/chartService"
+import Chart from "./chartcomponent";
+import Pie from "./charts/pie";
+import { parseCsvHelper } from "../helpers/chartService";
 
 const ChartService = (props) => {
-  let [dataUploadedCheck,setDataUploadedCheck] = useState(false)
-  
+  let [dataUploadedCheck, setDataUploadedCheck] = useState(false);
+
   let handleChart = (e) => {
     props.selectChart(e.target.value);
     props.selectedMode(e.target.value);
   };
 
   let generateChart = (e) => {
-    e.preventDefault()
-    setDataUploadedCheck(Object.keys(props.dataUploaded).length !== 0)
+    e.preventDefault();
+    setDataUploadedCheck(Object.keys(props.dataUploaded).length !== 0);
   };
 
   let parseCSV = (e) => {
-    parseCsvHelper(e).then((body)=>{
+    parseCsvHelper(e).then((body) => {
       props.uploadData(body);
-    })
+    });
   };
 
   return (
@@ -41,24 +42,25 @@ const ChartService = (props) => {
       </div>
 
       <label>
-
-       Select type of chart
-       <select onChange={handleChart}>
-         <option value="line">Line</option>
-         <option value="scatter">Scatter</option>
-         <option value="pie">Pie</option>
-         <option value="boxplot">BoxPlot</option>
-         <option value="bar">Bar</option>
-         <option value="3Daxis">3D Axis</option>
-         <option value="3Dline">3D Line</option>
-         <option value="3Dsurface">3D surface</option>
-         <option value="Histograms">Histograms</option>
-         <option value="countourplots">Countour Plots</option>
-       </select>
+        Select type of chart
+        <select onChange={handleChart}>
+          <option value="line">Line</option>
+          <option value="scatter">Scatter</option>
+          <option value="pie">Pie</option>
+          <option value="boxplot">BoxPlot</option>
+          <option value="bar">Bar</option>
+          <option value="3Daxis">3D Axis</option>
+          <option value="3Dline">3D Line</option>
+          <option value="3Dsurface">3D surface</option>
+          <option value="Histograms">Histograms</option>
+          <option value="countourplots">Countour Plots</option>
+        </select>
       </label>
 
-      {dataUploadedCheck && <Chart/> }
-      
+      {dataUploadedCheck && props.selectedChartType === "line" && <Chart />}
+      {dataUploadedCheck && props.selectedChartType === "scatter" && <Chart />}
+      {dataUploadedCheck && props.selectedChartType === "pie" && <Pie />}
+
       <div>
         <a href="/">Back to main page</a>
       </div>
@@ -67,14 +69,12 @@ const ChartService = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  console.log('statee',state)
-  return state
-}
+  console.log("statee", state);
+  return state;
+};
 
 export default connect(mapStateToProps, {
   uploadData,
   selectChart,
-  selectedMode
+  selectedMode,
 })(ChartService);
-
-
