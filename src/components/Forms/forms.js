@@ -2,12 +2,15 @@ import React from "react";
 import { useState } from "react";
 
 export default function Forms(props) {
-  const [labels, setLabels] = useState("");
+  const [data, setData] = useState({
+    labelText: "",
+    title: "Chart",
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.setformData(labels.split(","));
-    console.log("form state", labels);
+    props.setformData(data);
+    console.log("form state", data);
   };
 
   return (
@@ -19,11 +22,30 @@ export default function Forms(props) {
       <label>Enter Labels</label>
       <br />
       <input
-        name="label"
+        name="labelText"
         type="text"
-        value={labels}
+        value={data.labelText}
         placeholder="label1,label2.."
-        onChange={(e) => setLabels(e.target.value)}
+        onChange={(e) =>
+          setData((prevState) => ({
+            ...prevState,
+            labelText: e.target.value,
+          }))
+        }
+      />
+      <br />
+      <label>Enter Title</label>
+      <br />
+      <input
+        name="title"
+        type="text"
+        value={data.title}
+        onChange={(e) =>
+          setData((prevState) => ({
+            ...prevState,
+            title: e.target.value,
+          }))
+        }
       />
 
       <br />

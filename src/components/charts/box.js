@@ -4,21 +4,20 @@ import Form from "../Forms/forms";
 import { useState } from "react";
 import { connect } from "react-redux";
 
-function Pie(props) {
+function Boxplot(props) {
   const [formData, setformData] = useState("");
-  console.log("rrr", formData);
   return (
     <div>
       <Form setformData={setformData} />
       <Plot
         data={[
           {
-            values: props.dataUploaded.x,
-            labels: formData.labelText ? formData.labelText.split(",") : "",
+            values: [19, 26, 55],
+            labels: formData,
             type: "pie",
           },
         ]}
-        layout={{ width: 600, height: 550, title: formData.title }}
+        layout={{ width: 600, height: 550, title: "3D" }}
       />
     </div>
   );
@@ -28,4 +27,4 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-export default connect(mapStateToProps)(Pie);
+export default connect(mapStateToProps)(Chart);
